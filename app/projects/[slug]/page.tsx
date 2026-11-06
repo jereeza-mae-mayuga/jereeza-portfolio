@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -22,7 +21,6 @@ const featuredSlugs = [
   "iot-parcel-locker",
 ] as const;
 
-// Same team members for all three projects
 const teamMembers = [
   "Christine Joyce M. Belen",
   "Paul Andrei F. Cielo",
@@ -50,7 +48,6 @@ const projectDetails: Record<string, ProjectDetails> = {
         label: "System architecture diagram",
       },
     ],
-
     objectives: [
       "Design and develop a wall-mounted, IoT-based residential parcel locker prototype supporting delivery, retrieval, and return transactions for a single household.",
       "Implement rule-based multi-step authentication using registered tracking-number validation for deliveries, PIN-based resident access, and controlled authentication for returns.",
@@ -60,16 +57,12 @@ const projectDetails: Record<string, ProjectDetails> = {
       "Enhance parcel traceability and accountability through authentication, parcel detection, transaction logging, and video documentation.",
       "Evaluate the prototype's functionality, reliability, security performance, and usability under controlled testing conditions.",
     ],
-
     contribution:
       "Served as team leader and contributed to hardware development and integration.",
-
     output:
       "An IoT-based residential parcel locker prototype designed to integrate controlled access, parcel detection, transaction monitoring, and surveillance. System evaluation is part of the capstone study.",
-
     team: teamMembers,
   },
-
   "req-it": {
     gallery: [
       {
@@ -81,7 +74,6 @@ const projectDetails: Record<string, ProjectDetails> = {
         label: "System diagram",
       },
     ],
-
     objectives: [
       "Develop a web and mobile system that allows students and alumni to submit academic document requests and upload proof of payment online.",
       "Implement a registrar-side portal for managing, monitoring, and updating document requests efficiently.",
@@ -89,16 +81,12 @@ const projectDetails: Record<string, ProjectDetails> = {
       "Provide real-time request tracking and notifications to inform users about their document request status.",
       "Evaluate the system through User Acceptance Testing (UAT), focusing on usability, efficiency, and user satisfaction.",
     ],
-
     contribution:
       "Served as team leader and contributed to frontend development, backend development, and project documentation.",
-
     output:
       "A document request and tracking system designed to connect students, alumni, and registrar staff through web and mobile interfaces with RFID-based claiming verification.",
-
     team: teamMembers,
   },
-
   "iot-parcel-locker": {
     gallery: [
       {
@@ -110,7 +98,6 @@ const projectDetails: Record<string, ProjectDetails> = {
         label: "IoT system diagram",
       },
     ],
-
     objectives: [
       "Design a physical parcel locker prototype equipped with an electronic locking mechanism and an embedded controller.",
       "Implement a cloud-integrated dashboard for homeowners to register expected tracking numbers and monitor delivery status in real time.",
@@ -119,13 +106,10 @@ const projectDetails: Record<string, ProjectDetails> = {
       "Automate parcel status tracking with lifecycle updates such as PENDING, DELIVERED, and RETRIEVED.",
       "Establish a secure retrieval protocol allowing homeowners to unlock the locker and reset its status.",
     ],
-
     contribution:
       "Served as team leader and contributed to hardware development and integration.",
-
     output:
       "A smart parcel collection prototype combining embedded hardware, parcel detection, electronic locking, and web-based monitoring.",
-
     team: teamMembers,
   },
 };
@@ -143,18 +127,14 @@ export default async function ProjectDetail({
 
   const featured = featuredSlugs
     .map((featuredSlug) =>
-      projects.find(
-        (project) => project.slug === featuredSlug
-      )
+      projects.find((project) => project.slug === featuredSlug)
     )
     .filter(
       (project): project is (typeof projects)[number] =>
         project !== undefined
     );
 
-  const index = featured.findIndex(
-    (project) => project.slug === slug
-  );
+  const index = featured.findIndex((project) => project.slug === slug);
 
   if (index === -1 || !projectDetails[slug]) {
     notFound();
@@ -162,68 +142,36 @@ export default async function ProjectDetail({
 
   const project = featured[index];
   const details = projectDetails[slug];
-
-  const previous =
-    featured[
-      (index - 1 + featured.length) % featured.length
-    ];
-
-  const next =
-    featured[(index + 1) % featured.length];
+  const previous = featured[(index - 1 + featured.length) % featured.length];
+  const next = featured[(index + 1) % featured.length];
 
   return (
     <main className="detail-shell fresh-shell showcase-detail-page">
-      {/* HEADER */}
       <header className="detail-nav">
         <Link href="/#projects">
           <ArrowLeft size={16} />
           Back to projects
         </Link>
-
         <Link href="/" className="detail-brand">
           jereeza<span>✿</span>
         </Link>
       </header>
 
-      {/* PROJECT HERO */}
       <section className="detail-hero showcase-detail-hero">
-        <span className="detail-eyebrow">
-          03 / MY CREATIONS ·{" "}
-          {project.type.toUpperCase()}
-        </span>
-
         <div className="showcase-detail-title">
           <h1>
             {project.title}
-            <span className="showcase-title-spark">
-              ✳
-            </span>
+            <span className="showcase-title-spark">✳</span>
           </h1>
-
           <LikeButton slug={project.slug} />
         </div>
-
         <p>{project.description}</p>
-
-        <div className="showcase-detail-meta">
-          <span>
-            {String(index + 1).padStart(2, "0")} /{" "}
-            {String(featured.length).padStart(2, "0")}
-          </span>
-
-          <span>{project.type}</span>
-        </div>
       </section>
 
-      {/* VISUAL OVERVIEW */}
-      <section
-        className="showcase-detail-gallery"
-        aria-label="Project images"
-      >
+      <section className="showcase-detail-gallery" aria-label="Project images">
         <div className="showcase-detail-gallery-heading">
           <span>VISUAL OVERVIEW</span>
         </div>
-
         <div className="showcase-gallery-grid">
           {details.gallery.map((item, i) => (
             <figure
@@ -236,11 +184,8 @@ export default async function ProjectDetail({
                   alt={`${project.title}: ${item.label}`}
                 />
               </div>
-
               <figcaption>
-                <span>
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+                <span>{String(i + 1).padStart(2, "0")}</span>
                 {item.label}
               </figcaption>
             </figure>
@@ -248,133 +193,91 @@ export default async function ProjectDetail({
         </div>
       </section>
 
-      {/* PROJECT INFORMATION */}
       <section className="showcase-detail-info">
-        {/* PROJECT TYPE */}
         <div className="showcase-detail-fact">
           <span>PROJECT TYPE</span>
           <h2>{project.type}</h2>
         </div>
-
-        {/* CONTRIBUTION SUMMARY */}
         <div className="showcase-detail-fact">
           <span>MY CONTRIBUTION</span>
           <h2>{project.role}</h2>
         </div>
-
-        {/* TECHNOLOGIES */}
         <div className="showcase-detail-tech">
           <div className="showcase-detail-tech-title">
             <Layers3 size={20} />
             <h2>Technologies & components</h2>
           </div>
-
           <div className="showcase-tags">
             {project.technologies.map((tech) => (
               <span key={tech}>{tech}</span>
             ))}
           </div>
         </div>
-
-        {/* PROJECT OBJECTIVES */}
         <div className="showcase-detail-context">
           <Target size={20} />
-
           <div>
             <h2>Project objectives</h2>
-
             <ul className="project-objectives-list">
-              {details.objectives.map(
-                (objective, index) => (
-                  <li key={index}>
-                    {objective}
-                  </li>
-                )
-              )}
+              {details.objectives.map((objective, index) => (
+                <li key={index}>{objective}</li>
+              ))}
             </ul>
           </div>
         </div>
-
-        {/* ROLE & CONTRIBUTIONS */}
         <div className="showcase-detail-context">
           <Code2 size={20} />
-
           <div>
             <h2>My role & contributions</h2>
             <p>{details.contribution}</p>
           </div>
         </div>
-
-        {/* PROJECT OUTPUT */}
         <div className="showcase-detail-context">
           <ClipboardCheck size={20} />
-
           <div>
             <h2>Project output</h2>
             <p>{details.output}</p>
           </div>
         </div>
-
-        {/* TEAM MEMBERS */}
         <div className="showcase-detail-context">
           <Users size={20} />
-
           <div>
             <h2>Project team</h2>
-
             <ul className="project-objectives-list">
               {details.team.map((member) => (
-                <li key={member}>
-                  {member}
-                </li>
+                <li key={member}>{member}</li>
               ))}
             </ul>
           </div>
         </div>
       </section>
 
-      {/* PREVIOUS / NEXT PROJECT */}
       <nav className="fresh-project-nav showcase-detail-nav">
         <Link
           href={`/projects/${previous.slug}`}
           aria-label={`Previous project: ${previous.title}`}
         >
           <ArrowLeft size={18} />
-
           <span>
             <small>PREVIOUS PROJECT</small>
-
-            <strong className="project-nav-title">
-              {previous.title}
-            </strong>
+            <strong className="project-nav-title">{previous.title}</strong>
           </span>
         </Link>
-
         <span className="project-nav-count">
           {index + 1} / {featured.length}
         </span>
-
         <Link
           href={`/projects/${next.slug}`}
           aria-label={`Next project: ${next.title}`}
         >
           <span>
             <small>NEXT PROJECT</small>
-
-            <strong className="project-nav-title">
-              {next.title}
-            </strong>
+            <strong className="project-nav-title">{next.title}</strong>
           </span>
-
           <ArrowRight size={18} />
         </Link>
       </nav>
 
-      {/* BACK TO PROJECTS */}
-      <Link
-        href="/#projects"
-        className="detail-bottom-link"
-      >
+      <Link href="/#projects" className="detail-bottom-link">
         <ArrowLeft size={16} />
         Back to all projects
       </Link>
