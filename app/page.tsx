@@ -24,8 +24,6 @@ import {
 } from "lucide-react";
 
 
-// TODO: Add your own icons to public/images/tech/. Update each icon path if needed.
-// Icons are optional: missing images show the first letters as a fallback.
 const techGroups = [
   { title: "Languages & Markup", items: ["C", "Java", "Python", "JavaScript", "TypeScript", "HTML", "CSS", "Dart", "XML"] },
   { title: "Frameworks & Development", items: ["React", "Next.js", "Node.js", "Express.js", "Flutter", "Arduino", "PlatformIO", "Ren'Py"] },
@@ -35,8 +33,8 @@ const techGroups = [
 ];
 
 const techIcons: Record<string, string> = {
-  // TODO: Place icon files in public/images/tech/ with these filenames.
-  // You can change each path to match your own PNG, SVG, or WEBP images.
+
+
   "C": "/images/tech/c.png", "Java": "/images/tech/java.png", "Python": "/images/tech/python.png",
   "JavaScript": "/images/tech/javascript.png", "TypeScript": "/images/tech/typescript.png",
   "HTML": "/images/tech/html.png", "CSS": "/images/tech/css.png", "Dart": "/images/tech/dart.png",
@@ -60,7 +58,7 @@ function TechIcon({ name }: { name: string }) {
   const [failed, setFailed] = useState(false);
   const path = techIcons[name];
   return path && !failed ? (
-    // eslint-disable-next-line @next/next/no-img-element
+
     <img src={path} alt="" loading="lazy" onError={() => setFailed(true)} />
   ) : <span aria-hidden="true">{name.slice(0, 2).toUpperCase()}</span>;
 }
@@ -98,19 +96,13 @@ export default function Home() {
           {menuOpen ? <X /> : <Menu />}
         </button>
       </nav>
-
-      {/* HERO */}
       <section className="hero section-shell" id="home">
         <div className="hero-copy">
-          <div className="status-pill">
-            <span className="status-dot" />
-            WELCOME TO MY LITTLE WORLD
-          </div>
 
-          <div className="hero-heading">
+<div className="hero-heading">
             <p className="eyebrow">HELLO, WORLD! I'M</p>
-            <h1>
-              Jereeza<span className="heading-flower">✿</span>
+            <h1 className="hero-name">
+              Jereez<span className="hero-name-ending">a<span className="hero-name-flower" aria-hidden="true">✿</span></span>
             </h1>
           <h2>
             Somewhere between
@@ -129,11 +121,7 @@ export default function Home() {
             </a>
           </div>
 
-          <div className="hero-footer">
-            <span className="mini-sparkle">✳</span>
-            IT student · developer · freelance digital artist
-          </div>
-        </div>
+</div>
 
         <div className={`hero-art creative-garden ${creativeMode ? "creative-on" : "creative-off"}`}>
           <div className="art-grid" />
@@ -209,8 +197,6 @@ export default function Home() {
           SCROLL TO EXPLORE
         </a>
       </section>
-
-      {/* ABOUT */}
       <section className="about section-shell" id="about">
         <div className="section-intro">
           <span className="section-kicker">01 / THE PERSON BEHIND THE CODE</span>
@@ -282,11 +268,11 @@ export default function Home() {
               <span> and everything between.</span>
             </h3>
             <p>
-              Hi! I'm Jereeza, an Information Technology student interested in
+              Hi! I&apos;m Jereeza, an Information Technology student interested in
               web and mobile development, backend systems, and IoT.
             </p>
             <p>
-              Through academic and collaborative projects, I've worked with
+              Through academic and collaborative projects, I&apos;ve worked with
               databases, application development, and hardware integration.
               I also work as a freelance digital artist.
             </p>
@@ -301,8 +287,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* TECH STACK — keep the original cream card styling */}
       <section className="skills-section" id="skills">
         <div className="section-shell">
           <div className="section-intro">
@@ -327,8 +311,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* PROJECTS */}
       <section className="projects-section section-shell" id="projects">
         <div className="section-intro">
           <span className="section-kicker">03 / MY CREATIONS</span>
@@ -338,8 +320,6 @@ export default function Home() {
 
         <ProjectShowcase projects={portfolioProjects} />
       </section>
-
-      {/* MILESTONES */}
       <section className="milestones-section" id="milestones">
         <div className="section-shell milestones-layout">
           <div className="journey-intro-card">
@@ -379,8 +359,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* CONTACT */}
       <section className="contact-section section-shell" id="contact">
         <div className="contact-panel">
           <span className="section-kicker">05 / LET'S CONNECT</span>
@@ -391,7 +369,6 @@ export default function Home() {
           <p>
             Feel free to reach out about projects, collaboration, or opportunities.
           </p>
-          {/* TODO: Replace YOUR_EMAIL_HERE and the GitHub URL with your own links. */}
           <div className="contact-actions">
             <a href="mailto:YOUR_EMAIL_HERE" className="btn btn-primary">
               <Mail size={18} /> Say hello
