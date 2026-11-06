@@ -194,27 +194,28 @@ export default async function ProjectDetail({
             </div>
 
         <div className="showcase-gallery-grid">
-          {details.gallery.map((item, i) => (
+        {details.gallery.map((item, i) => (
             <figure
-              key={item.src}
-              className={`showcase-gallery-item ${
-                i === 0 ? "showcase-gallery-primary" : ""
-              }`}
+            key={item.src}
+            className="showcase-gallery-item showcase-gallery-equal"
             >
-              <GalleryImage
+            <div className="showcase-gallery-image-frame">
+                <GalleryImage
                 src={item.src}
                 alt={`${project.title}: ${item.label}`}
-              />
+                />
+            </div>
 
-              <figcaption>
+            <figcaption>
                 <span>
-                  {String(i + 1).padStart(2, "0")}
+                {String(i + 1).padStart(2, "0")}
                 </span>
                 {item.label}
-              </figcaption>
+            </figcaption>
             </figure>
-          ))}
+        ))}
         </div>
+
       </section>
 
       <section className="showcase-detail-info">

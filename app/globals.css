@@ -5215,3 +5215,45 @@ body {
   color: #4d4034;
   z-index: 2;
 }
+
+/* Equal-sized project visual overview cards */
+
+.showcase-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+.showcase-gallery-grid .showcase-gallery-equal {
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.showcase-gallery-image-frame {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.showcase-gallery-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.showcase-gallery-equal figcaption {
+  margin-top: auto;
+  padding-top: 14px;
+}
+
+@media (max-width: 768px) {
+  .showcase-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}

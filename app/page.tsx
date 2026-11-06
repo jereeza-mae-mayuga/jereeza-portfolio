@@ -412,7 +412,7 @@ export default function Home() {
       </section>
 
       <footer className="footer">
-        <span>© 2026 Jereeza Mae</span>
+        <span>© 2026 Jereeza Mae Mayuga</span>
         <span>Built with Next.js.</span>
         <a href="#home">Back to top ↑</a>
       </footer>
