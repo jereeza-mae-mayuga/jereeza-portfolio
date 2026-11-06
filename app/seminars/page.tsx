@@ -13,7 +13,6 @@ import {
   GraduationCap,
 } from "lucide-react";
 
-
 const seminars = [
   {
     date: "April 24, 2026",
@@ -66,7 +65,6 @@ const seminars = [
   },
 ];
 
-
 const slides = [
   "/certificates/previews/global-classroom-1.png",
   "/certificates/previews/global-classroom-2.png",
@@ -78,9 +76,7 @@ export default function Seminars() {
   const timelineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const elements = document.querySelectorAll(
-      ".sun-reveal"
-    );
+    const elements = document.querySelectorAll(".sun-reveal");
 
     if (!("IntersectionObserver" in window)) {
       elements.forEach((el) => el.classList.add("is-visible"));
@@ -262,30 +258,15 @@ export default function Seminars() {
                                 </span>
 
                                 <div>
-                                <p>{session}</p>
+                                  <p>{session}</p>
                                 </div>
                               </div>
                             )
                           )}
-
-                          {"note" in seminar &&
-                            seminar.note && (
-                              <p className="sun-event-note">
-                                {seminar.note}
-                              </p>
-                            )}
                         </div>
                       )}
                     </>
                   )}
-
-                  {seminar.details.length === 0 &&
-                    "note" in seminar &&
-                    seminar.note && (
-                      <p className="sun-event-note">
-                        {seminar.note}
-                      </p>
-                    )}
                 </div>
               </article>
             );
