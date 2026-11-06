@@ -1,0 +1,3 @@
+"use client";
+import {useEffect} from "react";
+export default function ScrollBloom(){useEffect(()=>{const els=Array.from(document.querySelectorAll(".section-intro,.project-card,.milestone-item,.about-card,.about-text,.tech-group,.contact-panel"));els.forEach(el=>el.classList.add("bloom-reveal"));if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){els.forEach(el=>el.classList.add("bloom-visible"));return;}const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("bloom-visible");io.unobserve(e.target);}}),{threshold:.08,rootMargin:"0px 0px -24px 0px"});els.forEach(el=>io.observe(el));return()=>io.disconnect();},[]);return null;}
