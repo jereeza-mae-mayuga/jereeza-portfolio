@@ -14,6 +14,7 @@ import {
   Coffee,
   Gamepad2,
   Heart,
+  Linkedin,
   Mail,
   Menu,
   Sparkles,
@@ -290,7 +291,7 @@ export default function Home() {
               I also work as a freelance digital artist.
             </p>
             <p>
-              Outside of coding, I enjoy gaming, drawing, and spending time with cats.
+              Outside of coding, I enjoy gaming, drawing, and spending time with my cat.
             </p>
             <div className="interest-tags">
               <span>🎮 gaming</span>
@@ -396,12 +397,20 @@ export default function Home() {
               <Mail size={18} /> Say hello
             </a>
             <a
-              href="https://github.com/"
+              href="https://github.com/jereeza-mae-mayuga"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-outline"
             >
               <Code2 size={18} /> GitHub
+            </a>
+            <a
+              href="https://www.linkedin.com/in/jereeza-mayuga"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-outline"
+            >
+              <Linkedin size={18} /> LinkedIn
             </a>
           </div>
           <div className="contact-bottom">
@@ -413,7 +422,6 @@ export default function Home() {
 
       <footer className="footer">
         <span>© 2026 Jereeza Mae Mayuga</span>
-        <span>Built with Next.js.</span>
         <a href="#home">Back to top ↑</a>
       </footer>
     </main>

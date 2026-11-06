@@ -5257,3 +5257,209 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* Mobile project navigation */
+@media (max-width: 768px) {
+  .showcase-detail-nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0;
+  }
+
+  .showcase-detail-nav > a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .showcase-detail-nav > a:first-child {
+    justify-content: flex-start;
+  }
+
+  .showcase-detail-nav > a:last-child {
+    justify-content: flex-end;
+  }
+
+  .showcase-detail-nav .project-nav-title {
+    display: none;
+  }
+
+  .showcase-detail-nav small {
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+
+  .showcase-detail-nav .project-nav-count {
+    font-size: 12px;
+    white-space: nowrap;
+    text-align: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .showcase-detail-nav {
+    gap: 6px;
+  }
+
+  .showcase-detail-nav small {
+    font-size: 10px;
+    letter-spacing: 0;
+  }
+}
+
+/* ACHIEVEMENTS — MOBILE LAYOUT FIX */
+
+@media (max-width: 768px) {
+  .sun-deans {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 24px;
+    height: auto;
+    min-height: 0;
+    padding: 30px 24px;
+  }
+
+  .sun-deans-copy {
+    width: 100%;
+    min-width: 0;
+    text-align: left;
+  }
+
+  .sun-deans-copy h2 {
+    font-size: clamp(30px, 8vw, 42px);
+    line-height: 1.12;
+    margin: 14px 0;
+  }
+
+  .sun-deans-copy p {
+    margin: 0;
+  }
+
+  .sun-deans-year {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 22px;
+  }
+
+  .sun-deans-art {
+    position: relative;
+    inset: auto;
+    flex: 0 0 auto;
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+    transform: none;
+  }
+
+  .sun-orbit-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .sun-card-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .sun-award-card {
+    height: auto;
+    min-height: 0;
+  }
+
+  .sun-involvement-card {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .sun-deans {
+    padding: 26px 20px;
+    gap: 18px;
+  }
+
+  .sun-deans-art {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+/* Dean's Lister — mobile illustration placement */
+@media (max-width: 768px) {
+  .sun-deans {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 420px;
+    padding: 30px 24px;
+    overflow: hidden;
+  }
+
+  .sun-deans-copy {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    text-align: left;
+  }
+
+  .sun-deans-art {
+    position: absolute;
+    top: auto;
+    left: auto;
+    right: 35px;
+    bottom: 25px;
+    width: 135px;
+    height: 135px;
+    margin: 0;
+    transform: none;
+  }
+
+  .sun-deans-art .sun-orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    width: 125px;
+    height: 125px;
+    margin: 0;
+    transform: translate(-50%, -50%) rotate(12deg);
+  }
+
+  .sun-deans-art .sun-orbit-two {
+    transform: translate(-50%, -50%) rotate(-12deg);
+  }
+
+  .sun-deans-art .sun-orbit-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin: 0;
+    transform: translate(-50%, -50%);
+  }
+
+  .sun-deans-art .sun-spark-one {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .sun-deans-art .sun-spark-two {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}
