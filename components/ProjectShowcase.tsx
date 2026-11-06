@@ -1,10 +1,10 @@
-
 "use client";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowUpRight, Heart, Eye, X } from "lucide-react";
 import { createPortal } from "react-dom";
+
 export type ShowcaseProject = {
   slug: string;
   title: string;
@@ -14,60 +14,30 @@ export type ShowcaseProject = {
   technologies: string[];
 };
 
-export const projectArtwork: Record<
-  string,
-  {
-    cover: string;
-    gallery: { src: string; label: string }[];
-  }
-> = {
+export const projectArtwork: Record<string, { cover: string; gallery: { src: string; label: string }[] }> = {
   padalock: {
     cover: "/projects/padalock-cover.png",
     gallery: [
-      {
-        src: "/projects/padalock-cover.png",
-        label: "Application and dashboard",
-      },
-      {
-        src: "/projects/padalock-diagram.png",
-        label: "System architecture",
-      },
+      { src: "/projects/padalock-cover.png", label: "Application and dashboard" },
+      { src: "/projects/padalock-diagram.png", label: "System architecture" },
     ],
   },
   "req-it": {
     cover: "/projects/req-it-cover.png",
     gallery: [
-      {
-        src: "/projects/req-it-cover.png",
-        label: "Web and mobile interfaces",
-      },
-      {
-        src: "/projects/req-it-diagram.png",
-        label: "System architecture",
-      },
+      { src: "/projects/req-it-cover.png", label: "Web and mobile interfaces" },
+      { src: "/projects/req-it-diagram.png", label: "System architecture" },
     ],
   },
   "iot-parcel-locker": {
     cover: "/projects/iot-cover.png",
     gallery: [
-      {
-        src: "/projects/iot-cover.png",
-        label: "System overview",
-      },
-      {
-        src: "/projects/iot-diagram.png",
-        label: "System diagram",
-      },
+      { src: "/projects/iot-cover.png", label: "System overview" },
+      { src: "/projects/iot-diagram.png", label: "System diagram" },
     ],
   },
-  mindblossom: {
-    cover: "/projects/mindblossom.png",
-    gallery: [],
-  },
-  sdcanteen: {
-    cover: "/projects/sdcanteen.png",
-    gallery: [],
-  },
+  mindblossom: { cover: "/projects/mindblossom.png", gallery: [] },
+  sdcanteen: { cover: "/projects/sdcanteen.png", gallery: [] },
 };
 
 export function LikeButton({ slug }: { slug: string }) {
@@ -95,8 +65,6 @@ export function LikeButton({ slug }: { slug: string }) {
   );
 }
 
-// Only used on the three major project detail pages.
-
 export function GalleryImage({
   src,
   alt,
@@ -118,7 +86,6 @@ export function GalleryImage({
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-
     window.addEventListener("keydown", close);
 
     return () => {
@@ -145,11 +112,8 @@ export function GalleryImage({
             onError={() => setFailed(true)}
           />
         ) : (
-          <span className="showcase-missing">
-            Image unavailable
-          </span>
+          <span className="showcase-missing">Image unavailable</span>
         )}
-
         {!failed && (
           <span className="showcase-zoom">
             <Eye size={16} />
@@ -160,10 +124,7 @@ export function GalleryImage({
 
       {open &&
         createPortal(
-          <div
-            className="showcase-lightbox"
-            onClick={() => setOpen(false)}
-          >
+          <div className="showcase-lightbox" onClick={() => setOpen(false)}>
             <div
               className="showcase-lightbox-panel"
               role="dialog"
@@ -179,7 +140,6 @@ export function GalleryImage({
               >
                 <X size={22} />
               </button>
-
               <img src={src} alt={alt} />
             </div>
           </div>,
@@ -189,57 +149,30 @@ export function GalleryImage({
   );
 }
 
+const featuredSlugs = ["padalock", "req-it", "iot-parcel-locker"];
 
-const featuredSlugs = [
-  "padalock",
-  "req-it",
-  "iot-parcel-locker",
-];
-
-export default function ProjectShowcase({
-  projects,
-}: {
-  projects: ShowcaseProject[];
-}) {
+export default function ProjectShowcase({ projects }: { projects: ShowcaseProject[] }) {
   const [liked, setLiked] = useState<Record<string, boolean>>({});
   const [pulse, setPulse] = useState<Record<string, number>>({});
 
   const major = featuredSlugs
     .map((slug) => projects.find((project) => project.slug === slug))
-    .filter(
-      (project): project is ShowcaseProject =>
-        project !== undefined
-    );
+    .filter((project): project is ShowcaseProject => project !== undefined);
 
-  const small = projects.filter(
-    (project) => !featuredSlugs.includes(project.slug)
-  );
+  const small = projects.filter((project) => !featuredSlugs.includes(project.slug));
 
   function toggleLike(slug: string) {
-    setLiked((current) => ({
-      ...current,
-      [slug]: !current[slug],
-    }));
-
-    setPulse((current) => ({
-      ...current,
-      [slug]: (current[slug] || 0) + 1,
-    }));
+    setLiked((current) => ({ ...current, [slug]: !current[slug] }));
+    setPulse((current) => ({ ...current, [slug]: (current[slug] || 0) + 1 }));
   }
 
-  function renderCard(
-    project: ShowcaseProject,
-    index: number,
-    compact: boolean
-  ) {
+  function renderCard(project: ShowcaseProject, index: number, compact: boolean) {
     const artwork = projectArtwork[project.slug];
 
     return (
       <article
         key={project.slug}
-        className={`showcase-card ${
-          compact ? "showcase-compact" : "showcase-feature"
-        }`}
+        className={`showcase-card ${compact ? "showcase-compact" : "showcase-feature"}`}
         style={{ animationDelay: `${index * 90}ms` }}
       >
         <div className="showcase-artwork">
@@ -252,20 +185,10 @@ export default function ProjectShowcase({
               />
             )}
           </div>
-
-          <span className="showcase-index">
-            {String(index + 1).padStart(2, "0")} /{" "}
-            {String(projects.length).padStart(2, "0")}
-          </span>
-
           <button
             type="button"
-            className={`showcase-like ${
-              liked[project.slug] ? "is-liked" : ""
-            }`}
-            aria-label={`${
-              liked[project.slug] ? "Unlike" : "Like"
-            } ${project.title}`}
+            className={`showcase-like ${liked[project.slug] ? "is-liked" : ""}`}
+            aria-label={`${liked[project.slug] ? "Unlike" : "Like"} ${project.title}`}
             aria-pressed={!!liked[project.slug]}
             onClick={() => toggleLike(project.slug)}
           >
@@ -273,43 +196,26 @@ export default function ProjectShowcase({
               key={pulse[project.slug] || 0}
               size={19}
               className="showcase-heart"
-              fill={
-                liked[project.slug] ? "currentColor" : "none"
-              }
+              fill={liked[project.slug] ? "currentColor" : "none"}
             />
           </button>
         </div>
 
         <div className="showcase-card-copy">
-          <span className="showcase-type">
-            {project.type}
-          </span>
-
           <h3>{project.title}</h3>
-
           <p>{project.description}</p>
-
           <div className="showcase-tags">
-            {project.technologies
-              .slice(0, compact ? 3 : 4)
-              .map((tech) => (
-                <span key={tech}>{tech}</span>
-              ))}
+            {project.technologies.slice(0, compact ? 3 : 4).map((tech) => (
+              <span key={tech}>{tech}</span>
+            ))}
           </div>
-
-          <div className="showcase-card-footer">
-            <span>{project.role}</span>
-
-            {!compact && (
-              <Link
-                href={`/projects/${project.slug}`}
-                className="showcase-open"
-              >
-                Explore project
-                <ArrowUpRight size={17} />
+          {!compact && (
+            <div className="showcase-card-footer">
+              <Link href={`/projects/${project.slug}`} className="showcase-open">
+                Explore project <ArrowUpRight size={17} />
               </Link>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </article>
     );
@@ -317,26 +223,11 @@ export default function ProjectShowcase({
 
   return (
     <div className="showcase-collection">
-      <div className="showcase-heading">
-        <span>FEATURED PROJECTS</span>
-        <span>01 — 03</span>
-      </div>
-
       <div className="showcase-feature-grid">
-        {major.map((project, index) =>
-          renderCard(project, index, false)
-        )}
+        {major.map((project, index) => renderCard(project, index, false))}
       </div>
-
-      <div className="showcase-heading showcase-heading-secondary">
-        <span>OTHER BUILDS</span>
-        <span>04 — 05</span>
-      </div>
-
       <div className="showcase-small-grid">
-        {small.map((project, index) =>
-          renderCard(project, index + major.length, true)
-        )}
+        {small.map((project, index) => renderCard(project, index + major.length, true))}
       </div>
     </div>
   );
