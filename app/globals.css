@@ -5138,3 +5138,80 @@ body {
   max-width: 100%;
   overflow-x: clip;
 }
+
+/* CONTACT SECTION — remove stray background */
+.contact-section {
+  position: relative;
+  background: transparent !important;
+  background-image: none !important;
+  overflow: clip;
+}
+
+/* Keep the pretty gradient inside the card */
+.contact-panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 27px;
+  background:
+    radial-gradient(
+      circle at 15% 80%,
+      #f6d5bd8a,
+      transparent 42%
+    ),
+    linear-gradient(
+      135deg,
+      #fff8dc,
+      #ffeab0 65%,
+      #f8e4c6
+    );
+}
+
+/* PROJECT IMAGE VIEWER */
+.showcase-lightbox {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99999 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 20px 20px;
+  background: rgba(35, 27, 23, 0.88);
+  backdrop-filter: blur(10px);
+}
+
+.showcase-lightbox-panel {
+  position: relative;
+  width: fit-content !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  margin: auto;
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.showcase-lightbox-panel > img {
+  display: block;
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: calc(100dvh - 90px) !important;
+  object-fit: contain !important;
+  border-radius: 12px;
+}
+
+.showcase-lightbox-close {
+  position: absolute !important;
+  top: -44px !important;
+  right: 0 !important;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 50%;
+  background: #fffdf6;
+  color: #4d4034;
+  z-index: 2;
+}

@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowUpRight, Heart, Eye, X } from "lucide-react";
-
+import { createPortal } from "react-dom";
 export type ShowcaseProject = {
   slug: string;
   title: string;
@@ -96,6 +96,7 @@ export function LikeButton({ slug }: { slug: string }) {
 }
 
 // Only used on the three major project detail pages.
+
 export function GalleryImage({
   src,
   alt,
@@ -115,8 +116,15 @@ export function GalleryImage({
       if (event.key === "Escape") setOpen(false);
     };
 
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     window.addEventListener("keydown", close);
-    return () => window.removeEventListener("keydown", close);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", close);
+    };
   }, [open]);
 
   return (
@@ -124,8 +132,10 @@ export function GalleryImage({
       <button
         type="button"
         className={`showcase-image-button ${className}`}
-        onClick={() => !failed && setOpen(true)}
-        aria-label={`Open image: ${alt}`}
+        onClick={() => {
+          if (!failed) setOpen(true);
+        }}
+        aria-label={`Enlarge ${alt}`}
       >
         {!failed ? (
           <img
@@ -148,35 +158,37 @@ export function GalleryImage({
         )}
       </button>
 
-      {open && (
-        <div
-          className="showcase-lightbox"
-          role="presentation"
-          onClick={() => setOpen(false)}
-        >
+      {open &&
+        createPortal(
           <div
-            className="showcase-lightbox-panel"
-            role="dialog"
-            aria-modal="true"
-            aria-label={alt}
-            onClick={(event) => event.stopPropagation()}
+            className="showcase-lightbox"
+            onClick={() => setOpen(false)}
           >
-            <button
-              type="button"
-              className="showcase-lightbox-close"
-              onClick={() => setOpen(false)}
-              aria-label="Close image"
+            <div
+              className="showcase-lightbox-panel"
+              role="dialog"
+              aria-modal="true"
+              aria-label={alt}
+              onClick={(event) => event.stopPropagation()}
             >
-              <X size={22} />
-            </button>
+              <button
+                type="button"
+                className="showcase-lightbox-close"
+                onClick={() => setOpen(false)}
+                aria-label="Close image"
+              >
+                <X size={22} />
+              </button>
 
-            <img src={src} alt={alt} />
-          </div>
-        </div>
-      )}
+              <img src={src} alt={alt} />
+            </div>
+          </div>,
+          document.body
+        )}
     </>
   );
 }
+
 
 const featuredSlugs = [
   "padalock",
