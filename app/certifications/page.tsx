@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import { createPortal } from "react-dom";
 import { useEffect, useState } from "react";
 import {
   ArrowLeft,
@@ -18,20 +19,20 @@ import {
   additionalCredentials,
 } from "../../lib/portfolio-data";
 
-
 const previews: Record<string, string> = {
   "mos-word": "/certificates/previews/cert_word2019.png",
   "mos-powerpoint": "/certificates/previews/cert_ppt2019.png",
   "its-html-css": "/certificates/previews/cert_html-css.png",
   "its-javascript": "/certificates/previews/cert_javascript.png",
   "testdome-sql": "/certificates/previews/cert_sql_testdome.png",
-
-  "cisco-ethical-hacker": "/certificates/previews/cert_cisco-ethical-hacker.png",
-  "cisco-cybersecurity": "/certificates/previews/cert_cisco-cybersecurity.png",
+  "cisco-ethical-hacker":
+    "/certificates/previews/cert_cisco-ethical-hacker.png",
+  "cisco-cybersecurity":
+    "/certificates/previews/cert_cisco-cybersecurity.png",
   "cisco-iot": "/certificates/previews/cert_cisco-iot.png",
-  "cisco-networking": "/certificates/previews/cert_cisco-networking.png",
+  "cisco-networking":
+    "/certificates/previews/cert_cisco-networking.png",
 };
-
 
 const filters = [
   { id: "all", label: "All credentials" },
@@ -53,6 +54,7 @@ function getGroup(category: string) {
 export default function Certifications() {
   const [filter, setFilter] = useState("all");
   const [open, setOpen] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   const current = items.find((item) => item.slug === open);
 
@@ -62,15 +64,27 @@ export default function Certifications() {
   );
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     if (!open) return;
 
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(null);
+      if (event.key === "Escape") {
+        setOpen(null);
+      }
     };
 
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     window.addEventListener("keydown", closeOnEscape);
-    return () =>
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", closeOnEscape);
+    };
   }, [open]);
 
   return (
@@ -101,7 +115,10 @@ export default function Certifications() {
           learning journey.
         </p>
 
-        <div className="credential-hero-decoration" aria-hidden="true">
+        <div
+          className="credential-hero-decoration"
+          aria-hidden="true"
+        >
           <span>✳</span>
           <span>✦</span>
           <span>✳</span>
@@ -187,7 +204,10 @@ export default function Certifications() {
                   ) : (
                     <div className="credential-badge-placeholder">
                       <div className="credential-badge-symbol">
-                        <Award size={37} strokeWidth={1.5} />
+                        <Award
+                          size={37}
+                          strokeWidth={1.5}
+                        />
                       </div>
 
                       <span>
@@ -249,56 +269,60 @@ export default function Certifications() {
         </div>
       </section>
 
-      {current && previews[current.slug] && (
-        <div
-          className="credential-modal"
-          role="presentation"
-          onClick={() => setOpen(null)}
-        >
+      {mounted &&
+        current &&
+        previews[current.slug] &&
+        createPortal(
           <div
-            className="credential-modal-panel"
-            role="dialog"
-            aria-modal="true"
-            aria-label={`Certificate preview: ${current.title}`}
-            onClick={(event) => event.stopPropagation()}
+            className="credential-modal"
+            role="presentation"
+            onClick={() => setOpen(null)}
           >
-            <div className="credential-modal-header">
-              <div>
-                <span>CERTIFICATE PREVIEW</span>
-                <h2>{current.title}</h2>
+            <div
+              className="credential-modal-panel"
+              role="dialog"
+              aria-modal="true"
+              aria-label={`Certificate preview: ${current.title}`}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="credential-modal-header">
+                <div>
+                  <span>CERTIFICATE PREVIEW</span>
+                  <h2>{current.title}</h2>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setOpen(null)}
+                  aria-label="Close preview"
+                >
+                  <X size={21} />
+                </button>
               </div>
 
-              <button
-                type="button"
-                onClick={() => setOpen(null)}
-                aria-label="Close preview"
-              >
-                <X size={21} />
-              </button>
-            </div>
+              <div className="credential-modal-image">
+                <img
+                  src={previews[current.slug]}
+                  alt={`Full certificate preview for ${current.title}`}
+                />
+              </div>
 
-            <div className="credential-modal-image">
-              <img
-                src={previews[current.slug]}
-                alt={`Full certificate preview for ${current.title}`}
-              />
-            </div>
+              <div className="credential-modal-footer">
+                <span>{current.issuer}</span>
 
-            <div className="credential-modal-footer">
-              <span>{current.issuer}</span>
-
-              <a
-                href={current.verifyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Verify credential
-                <ArrowUpRight size={16} />
-              </a>
+                <a
+                  href={current.verifyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Verify credential
+                  <ArrowUpRight size={16} />
+                </a>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </main>
   );
 }
